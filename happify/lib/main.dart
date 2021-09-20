@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(Profile());
+  runApp(SignIn());
 }
 
 class SignIn extends StatefulWidget {
@@ -264,6 +264,75 @@ class Profile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Invites extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            title: Text(
+              "Invite Friends",
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: Colors.orange[600],
+          ),
+          body: ListView(
+            addAutomaticKeepAlives: true,
+            children: [
+              for (var i = 1; i < 10; i++)
+                Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                    height: 50,
+                    child: Row(
+                      children: [
+                        Container(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.orange[600],
+                            radius: 50,
+                            child: Icon(
+                              Icons.person,
+                              size: 40.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        Text('Name' + i.toString(),
+                            style: TextStyle(fontSize: 22)),
+                        SizedBox(width: 130),
+                        RaisedButton(
+                          textColor: Colors.white,
+                          color: Colors.orange[600],
+                          child: Padding(
+                            padding: EdgeInsets.all(6.0),
+                            child: Text(
+                              "Invite",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                          ),
+                          onPressed: () {},
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(25.0),
+                          ),
+                        ),
+                      ],
+                    )),
+            ],
+          )),
     );
   }
 }
