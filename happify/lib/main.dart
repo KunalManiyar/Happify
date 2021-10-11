@@ -8,11 +8,7 @@ import 'signup.dart';
 import 'Relations.dart';
 
 void main() {
-<<<<<<< HEAD
-  runApp(Setting());
-=======
   runApp(Friends());
->>>>>>> 174f32f76904d059ff9f5610ba7fdb7c8e862833
 }
 
 class Setting extends StatefulWidget {
@@ -92,7 +88,6 @@ class _SettingState extends State<Setting> {
                     ),
                   ),
                 )
-              ],
             ),
           ),
         ),
