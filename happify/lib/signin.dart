@@ -21,6 +21,7 @@ class _SignInState extends State<SignIn> {
         }
       },
       child: MaterialApp(
+         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
             leading: GestureDetector(

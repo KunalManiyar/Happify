@@ -10,7 +10,9 @@ class Relations extends StatefulWidget {
 class _RelationsState extends State<Relations> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+       debugShowCheckedModeBanner: false,
+      home:Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           child: Center(
@@ -70,6 +72,6 @@ class _RelationsState extends State<Relations> {
                     ],
                   )),
           ],
-        ));
+        )));
   }
 }

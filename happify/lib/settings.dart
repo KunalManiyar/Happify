@@ -21,6 +21,7 @@ class _SettingState extends State<Setting> {
         }
       },
       child: MaterialApp(
+         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
             leading: GestureDetector(
