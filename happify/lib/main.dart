@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happify/settings.dart';
 import 'Status.dart';
 import 'profile.dart';
 import 'signin.dart';

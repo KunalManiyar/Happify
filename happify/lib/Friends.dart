@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:happify/main.dart';
 import 'Relations.dart';
 import 'Status.dart';
+import 'Events.dart';
 
 class Friends extends StatefulWidget {
   const Friends({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-       debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -71,7 +72,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _controller,
-          children: [Relations(), Status(), Text('Events')],
+          children: [Relations(), Status(), Events()],
         ),
       ),
     );
