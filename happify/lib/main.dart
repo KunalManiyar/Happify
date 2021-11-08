@@ -10,5 +10,5 @@ import 'FirstPage.dart';
 import 'Invites.dart';
 
 void main() {
-  runApp(Friends());
+  runApp(Invites());
 }

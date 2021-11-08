@@ -4,7 +4,7 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
             backgroundColor: Colors.orange[600],
             body: Column(
