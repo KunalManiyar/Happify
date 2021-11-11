@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'profile.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -9,6 +10,19 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   // This widget is the root of your application.
+  var details = {
+  'emailId':'',
+  'password':'',
+  };
+  String _text="";
+    void _onEmailChange(String value){
+      setState(() => details['emailId']=value);
+    }
+    void _onPasswordChange(String value){
+      setState(() => details['password']=value);
+    }
+   
+  
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -23,6 +37,7 @@ class _SignInState extends State<SignIn> {
       child: MaterialApp(
          debugShowCheckedModeBanner: false,
         home: Scaffold(
+          resizeToAvoidBottomInset :false,
           appBar: AppBar(
             leading: GestureDetector(
               child: Icon(Icons.menu),
@@ -41,6 +56,7 @@ class _SignInState extends State<SignIn> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+               
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
@@ -57,9 +73,7 @@ class _SignInState extends State<SignIn> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                           onChanged: _onEmailChange,
                             decoration: InputDecoration(
                               hintText: 'john_doe@gmail.com',
                               contentPadding: EdgeInsets.symmetric(
@@ -97,9 +111,7 @@ class _SignInState extends State<SignIn> {
                           width: 250,
                           child: TextField(
                             obscureText: _isObscure,
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                            onChanged: _onPasswordChange,
                             decoration: InputDecoration(
                               hintText: 'xxxxxx',
                               suffixIcon: IconButton(
@@ -132,6 +144,14 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 SizedBox(height: 60.0),
+                 Text(
+                    _text,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.red
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 SizedBox(
                     height: 45.0,
                     width: 300.0,
@@ -142,9 +162,22 @@ class _SignInState extends State<SignIn> {
                         "Submit",
                         style: TextStyle(
                           fontSize: 22.0,
+                        ) ,
                         ),
-                      ),
-                      onPressed: () {},
+                      onPressed: () {
+                      if(details['emailId']==""||details['password']==""){
+                        setState(() =>_text="Please Enter all details");
+                      }
+                      else{
+
+                         Navigator.pushNamed(
+                          context,
+                          '/friends',
+                          arguments: details,
+                      );
+                      }
+                     
+                    },
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0),
                       ),
@@ -159,7 +192,10 @@ class _SignInState extends State<SignIn> {
                   width: 150.0,
                   child: TextButton(
                     onPressed: () {
-                      // Respond to button press
+                      Navigator.pushNamed(
+                          context,
+                          '/signup'
+                      );
                     },
                     child: Text(
                       "Sign Up",

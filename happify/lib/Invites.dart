@@ -94,32 +94,65 @@ class _InvitesState extends State<Invites> {
   }
 
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text(
-                " Invite",
-                style: TextStyle(
-                  fontSize: 24,
-                ),
-              ),
-              backgroundColor: Colors.orange[600],
-              actions: <Widget>[
-                if (count != 0)
-                  IconButton(
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
+          currentFocus.focusedChild!.unfocus();
+        }
+      },
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+              appBar: AppBar(
+                
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(icon:Icon(Icons.arrow_back),
+                  onPressed:() => Navigator.pop(context),
+                ) ,
+                    Text(
+                      " Invite",
+                      style: TextStyle(
+                        fontSize: 24,
+                      ),
                     ),
-                    onPressed: () {
-                      // do something
-                    },
-                  )
-              ],
-            ),
-            body: Column(
-              children: users.map((user) => userTemplate(user)).toList(),
-            )));
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context,
+                            '/settings'
+                        );
+                      },
+                      child: Text(
+                        ":",
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                backgroundColor: Colors.orange[600],
+                actions: <Widget>[
+                  if (count != 0)
+                    IconButton(
+                      icon: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        // do something
+                      },
+                    )
+                ],
+              ),
+              body: Column(
+                children: users.map((user) => userTemplate(user)).toList(),
+              ))),
+    );
   }
 }

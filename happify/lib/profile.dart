@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
+import 'settings.dart';
+class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
 
-class Profile extends StatelessWidget {
   @override
+  _ProfileState createState() => _ProfileState();
+}
+class _ProfileState extends  State<Profile> {
+  
+  @override
+
+  bool showText=false;
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+
+    if (arguments != null) print("In profile page ${arguments}");
+    String text=showText?"Submitted Successfully":"";
     return MaterialApp(
        debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
+           leading: IconButton(icon:Icon(Icons.arrow_back),
+            onPressed:() => Navigator.pop(context),
+          ) ,
           automaticallyImplyLeading: true,
           title: Text(
             "Profile",
@@ -24,7 +40,7 @@ class Profile extends StatelessWidget {
               Stack(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(top: 100.0),
+                    margin: EdgeInsets.only(top: 50.0),
                     height: 200,
                     width: 200,
                     child: CircleAvatar(
@@ -40,7 +56,7 @@ class Profile extends StatelessWidget {
                   Container(
                     height: 70.0,
                     width: 70.0,
-                    margin: EdgeInsets.only(top: 220.0, left: 140.0),
+                    margin: EdgeInsets.only(top: 180.0, left: 140.0),
                     child: FloatingActionButton(
                       onPressed: () {
                         // Add your onPressed code here!
@@ -52,30 +68,61 @@ class Profile extends StatelessWidget {
                       backgroundColor: Colors.orange[600],
                     ),
                   ),
+                  
                 ],
               ),
+               
               Container(
+                
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    margin: EdgeInsets.only(top: 185.0),
-                    child: SizedBox(
-                        height: 45.0,
-                        width: 300.0,
-                        child: RaisedButton(
-                          textColor: Colors.white,
-                          color: Colors.orange[600],
-                          child: Text(
-                            "Done",
-                            style: TextStyle(
-                              fontSize: 22.0,
-                            ),
+                    margin: EdgeInsets.only(top: 180.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          text,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: Colors.green,
                           ),
-                          onPressed: () {},
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0),
-                          ),
-                        )),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                            height: 45.0,
+                            width: 300.0,
+                            child: RaisedButton(
+                              textColor: Colors.white,
+                              color: Colors.orange[600],
+                              child: Text(
+                                "Done",
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                ),
+                              ),
+                              onPressed: () {
+                                // arguments['profileImg']="Kunal";
+                                // Navigator.pushNamed(
+                                // context,
+                                // '/settings',
+                                // arguments: arguments,
+                                // );
+                                // setState(()=>showText=!showText);
+                                Navigator.pushNamed(
+                                    context,
+                                    '/friends',
+                                  
+                                );
+
+                              },
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(30.0),
+                              ),
+                            )),
+                      ],
+                    ),
                   ),
                 ),
               ),

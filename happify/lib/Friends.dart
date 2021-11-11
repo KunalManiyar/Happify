@@ -24,6 +24,9 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
+          leading: IconButton(icon:Icon(Icons.arrow_back),
+            onPressed:() => Navigator.pop(context),
+          ) ,
           title: Text(
             " Happify",
             style: TextStyle(
@@ -40,9 +43,26 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
               print(value);
             }, itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem(child: Text("Settings"), value: "Settings")
-              ];
-            })
+                  PopupMenuItem(
+                   child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context,
+                          '/settings'
+                      );
+                    },
+                    child: Text(
+                      "Settings",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                   value: "Settings")
+                ];
+              },
+            ),
           ],
           bottom: TabBar(
             controller: _controller,

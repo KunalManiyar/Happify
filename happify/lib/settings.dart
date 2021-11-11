@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:happify/signup.dart';
+import 'package:provider/provider.dart';
+import 'signin.dart';
+import 'profile.dart';
 class Setting extends StatefulWidget {
   const Setting({Key? key}) : super(key: key);
 
@@ -9,9 +12,14 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   // This widget is the root of your application.
+  
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
+    // context.read<UserDetails>().setUserDetails();
+    // print("In settings page");
+    // print(context.watch<UserDetails>().userDetails);
+    
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -20,13 +28,14 @@ class _SettingState extends State<Setting> {
           currentFocus.focusedChild!.unfocus();
         }
       },
+      
       child: MaterialApp(
          debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            leading: GestureDetector(
-              child: Icon(Icons.menu),
-            ),
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+              onPressed:() => Navigator.pop(context),
+            ), 
             title: Text(
               "Settings",
               style: TextStyle(
@@ -235,24 +244,24 @@ class _SettingState extends State<Setting> {
                   ),
                 ),
                 SizedBox(height: 10.0),
-                SizedBox(
-                  height: 45.0,
-                  width: 300.0,
-                  child: RaisedButton(
-                    textColor: Colors.white,
-                    color: Colors.orange[600],
-                    child: Text(
-                      "Submit",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                    ),
-                    onPressed: () {},
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                  ),
-                ),
+                // SizedBox(
+                //   height: 45.0,
+                //   width: 300.0,
+                //   child: RaisedButton(
+                //     textColor: Colors.white,
+                //     color: Colors.orange[600],
+                //     child: Text(
+                //       "Submit",
+                //       style: TextStyle(
+                //         fontSize: 20.0,
+                //       ),
+                //     ),
+                //     onPressed: () {},
+                //     shape: new RoundedRectangleBorder(
+                //       borderRadius: new BorderRadius.circular(30.0),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

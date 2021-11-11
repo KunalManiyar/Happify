@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'profile.dart';
+// class User{
+//   final String fullName="";
+//   final String emailId="";
+//   final String password="";
+//   final String confirmPassword="";
+//   final String countryrReligion="";
+//   final String mobileNo="";
+// }
+class UserDetails with ChangeNotifier{
+  var _userDetails={};
+  Map get userDetails=>_userDetails;
+  void setUserDetails(){
+    _userDetails=new _SignUpState().details;
+    print("In signup page : ${_userDetails}");
+    // print("Hello");
+    notifyListeners();
+  }
+}
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -9,6 +27,35 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   // This widget is the root of your application.
+  var details = {
+  'fullName':'',
+  'emailId':'',
+  'password':'',
+  'confirmPassword':'',
+  'countryReligion':'',
+  'mobileNo':'',
+  
+  };
+  // String _fullName="",_emailId="",_password="",_confirmPassword="",_countryReligion="",_mobileNo="";
+  String _text="";
+    void _onFullNameChange(String value){
+      setState(() => details['fullName']=value);
+    }
+    void _onEmailChange(String value){
+      setState(() => details['emailId']=value);
+    }
+    void _onPasswordChange(String value){
+      setState(() => details['password']=value);
+    }
+    void _onConfirmPasswordChange(String value){
+      setState(() => details['confirmPassword']=value);
+    }
+    void _onCountryReligionChange(String value){
+      setState(() => details['countryReligion']=value);
+    }
+    void _onMobileNoChange(String value){
+      setState(() => details['mobileNo']=value);
+    }
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
@@ -23,10 +70,11 @@ class _SignUpState extends State<SignUp> {
       child: MaterialApp(
          debugShowCheckedModeBanner: false,
         home: Scaffold(
+          resizeToAvoidBottomInset :false,
           appBar: AppBar(
-            leading: GestureDetector(
-              child: Icon(Icons.menu),
-            ),
+            leading: IconButton(icon:Icon(Icons.arrow_back),
+            onPressed:() => Navigator.pop(context),
+          ) ,
             title: Text(
               "SIGN UP",
               style: TextStyle(
@@ -41,6 +89,15 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                  Text(
+                    _text,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.red
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
@@ -57,9 +114,8 @@ class _SignUpState extends State<SignUp> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                             
+                            onChanged: _onFullNameChange,
                             decoration: InputDecoration(
                               hintText: 'John Doe',
                               contentPadding: EdgeInsets.symmetric(
@@ -96,9 +152,7 @@ class _SignUpState extends State<SignUp> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                            onChanged: _onEmailChange,
                             decoration: InputDecoration(
                               hintText: 'john_doe@gmail.com',
                               contentPadding: EdgeInsets.symmetric(
@@ -136,9 +190,7 @@ class _SignUpState extends State<SignUp> {
                           width: 250,
                           child: TextField(
                             obscureText: _isObscure,
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                            onChanged: _onPasswordChange,
                             decoration: InputDecoration(
                               hintText: 'xxxxxx',
                               suffixIcon: IconButton(
@@ -188,9 +240,7 @@ class _SignUpState extends State<SignUp> {
                           width: 250,
                           child: TextField(
                             obscureText: _isObscure,
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                            onChanged: _onConfirmPasswordChange,
                             decoration: InputDecoration(
                               hintText: 'xxxxxx',
                               suffixIcon: IconButton(
@@ -239,9 +289,7 @@ class _SignUpState extends State<SignUp> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                            onChanged: _onCountryReligionChange,
                             decoration: InputDecoration(
                               hintText: 'India',
                               contentPadding: EdgeInsets.symmetric(
@@ -278,9 +326,7 @@ class _SignUpState extends State<SignUp> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
-                            onChanged: (value) {
-                              //Do something with the user input.
-                            },
+                            onChanged: _onMobileNoChange,
                             decoration: InputDecoration(
                               hintText: 'john_doe@gmail.com',
                               contentPadding: EdgeInsets.symmetric(
@@ -313,7 +359,20 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 22.0,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if(details['fullName']==""||details['emailId']==""||details['password']==""||details['confirmPassword']==""||details['countryReligion']==""||details['mobileNo']==""){
+                        setState(() =>_text="Please Enter all details");
+                      }
+                      else{
+
+                         Navigator.pushNamed(
+                          context,
+                          '/profile',
+                          arguments: details,
+                      );
+                      }
+                     
+                    },
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
                     ),
