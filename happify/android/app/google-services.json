@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "13960003457",
+    "project_id": "happify-42b72",
+    "storage_bucket": "happify-42b72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13960003457:android:85fce5f0f6c7bad71cb280",
+        "android_client_info": {
+          "package_name": "com.example.happify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "13960003457-t5k6lp5ui4l880ig9qpqm88ucutm38hm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAO_zLzlLku9yTp2Ps5kPDz3bfEdboAOGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "13960003457-t5k6lp5ui4l880ig9qpqm88ucutm38hm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
