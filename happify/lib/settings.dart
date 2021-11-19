@@ -16,9 +16,9 @@ class _SettingState extends State<Setting> {
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
-    // context.read<UserDetails>().setUserDetails();
-    // print("In settings page");
-    // print(context.watch<UserDetails>().userDetails);
+    context.read<UserDetails>().setUserDetails();
+    print("In settings page");
+    print(context.watch<UserDetails>().userDetails);
     
     return GestureDetector(
       onTap: () {

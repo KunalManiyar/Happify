@@ -3,6 +3,7 @@ import 'package:happify/main.dart';
 import 'Relations.dart';
 import 'Status.dart';
 import 'Events.dart';
+import 'Invites.dart';
 
 class Friends extends StatefulWidget {
   const Friends({Key? key}) : super(key: key);
@@ -92,7 +93,12 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _controller,
-          children: [Relations(), Status(), Events()],
+          children: [
+            Relations(),
+            Status(
+            ),
+            Events()
+          ],
         ),
       ),
     );

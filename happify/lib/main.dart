@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:happify/Users.dart';
 import 'package:happify/main.dart';
 import 'package:provider/provider.dart';
 import 'package:happify/settings.dart';
+import 'Status.dart';
 import 'profile.dart';
 import 'signin.dart';
 import 'signup.dart';
@@ -9,30 +11,34 @@ import 'Friends.dart';
 import 'Invites.dart';
 import 'Relations.dart';
 
-
 import 'Relations.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_)=>UserDetails()),
-  ],child: MyApp(),));
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => UserDetails()),
+    ],
+    child: MyApp(),
+  ));
   // runApp(Relations());
 }
+
 class MyApp extends StatelessWidget {
-  const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: '/signin',
       routes: {
-        '/friends':(context)=>Friends(),
-        '/relations':(context)=>Relations(),
-        '/invites':(context)=>Invites(),
-        '/signin':(context)=>SignIn(),
+        '/friends': (context) => Friends(),
+        '/relations': (context) => Relations(),
+        '/invites': (context) => Invites(),
+        '/signin': (context) => SignIn(),
         '/profile': (context) => Profile(),
         '/signup': (context) => const SignUp(),
-        '/settings':(context)=>Setting()
+        '/settings': (context) => Setting(),
+        '/status': (context) => Status()
       },
     );
   }

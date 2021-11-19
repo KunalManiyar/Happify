@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
-// class User{
-//   final String fullName="";
-//   final String emailId="";
-//   final String password="";
-//   final String confirmPassword="";
-//   final String countryrReligion="";
-//   final String mobileNo="";
-// }
+class User{
+  final String fullName="";
+  final String emailId="";
+  final String password="";
+  final String confirmPassword="";
+  final String countryrReligion="";
+  final String mobileNo="";
+}
 class UserDetails with ChangeNotifier{
   var _userDetails={};
   Map get userDetails=>_userDetails;
@@ -371,7 +371,6 @@ class _SignUpState extends State<SignUp> {
                           arguments: details,
                       );
                       }
-                     
                     },
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(30.0),
@@ -380,9 +379,9 @@ class _SignUpState extends State<SignUp> {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+           ),
+         ),
+       ),
+     );
+   }
+ }

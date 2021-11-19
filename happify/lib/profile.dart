@@ -112,7 +112,7 @@ class _ProfileState extends  State<Profile> {
                                 // setState(()=>showText=!showText);
                                 Navigator.pushNamed(
                                     context,
-                                    '/friends',
+                                    '/invites',
                                   
                                 );
 
