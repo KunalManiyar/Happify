@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happify/Services/AuthenticationServices.dart';
 import 'profile.dart';
 
 class SignIn extends StatefulWidget {
@@ -10,17 +11,16 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   // This widget is the root of your application.
+  final _key = GlobalKey<FormState>();
+  final AuthenticationService _auth=AuthenticationService();
+  TextEditingController _emailContoller = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   var details = {
-  'emailId':'',
+  'email':'',
   'password':'',
   };
   String _text="";
-    void _onEmailChange(String value){
-      setState(() => details['emailId']=value);
-    }
-    void _onPasswordChange(String value){
-      setState(() => details['password']=value);
-    }
+    
    
   
   bool _isObscure = true;
@@ -52,69 +52,57 @@ class _SignInState extends State<SignIn> {
             backgroundColor: Colors.orange[600],
           ),
           body: Container(
-            padding: EdgeInsets.symmetric(horizontal: 36.0),
+       
+        child: Center(
+          child: Form(
+            key: _key,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-               
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 32.0),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Email id',
-                          style: TextStyle(fontSize: 22),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                          width: 250,
-                          child: TextField(
-                           onChanged: _onEmailChange,
-                            decoration: InputDecoration(
-                              hintText: 'john_doe@gmail.com',
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.orange.shade600, width: 2.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16.0)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+         
+              children: [
+                Text(
+                  'Register',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 40.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 32.0),
+                Padding(
+                  padding: const EdgeInsets.all(32.0),
                   child: Column(
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Password',
-                          style: TextStyle(fontSize: 22),
-                        ),
+                      
+                      TextFormField(
+                        controller: _emailContoller,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Email cannot be empty';
+                          } else
+                          details['email']=_emailContoller.text;
+                            return null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(color: Colors.black,fontSize: 20)),
+                        style: TextStyle(color: Colors.black),
                       ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: SizedBox(
-                          width: 250,
-                          child: TextField(
-                            obscureText: _isObscure,
-                            onChanged: _onPasswordChange,
-                            decoration: InputDecoration(
-                              hintText: 'xxxxxx',
-                              suffixIcon: IconButton(
+                      SizedBox(height: 40),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: _isObscure,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Password cannot be empty';
+                          } else{
+                            details['password']=_passwordController.text;
+                            return null;
+                          }
+                            
+                        },
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(color: Colors.black,fontSize: 20),
+                            suffixIcon: IconButton(
                                 icon: Icon(
                                   _isObscure
                                       ? Icons.visibility_off
@@ -126,32 +114,14 @@ class _SignInState extends State<SignIn> {
                                   });
                                 },
                               ),
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.orange.shade600, width: 2.0),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16.0)),
-                              ),
                             ),
-                          ),
+                        style: TextStyle(
+                          color: Colors.black,
+                          
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 60.0),
-                 Text(
-                    _text,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.red
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                      ),
+                      SizedBox(height: 60.0),
+                
                 SizedBox(
                     height: 45.0,
                     width: 300.0,
@@ -165,18 +135,9 @@ class _SignInState extends State<SignIn> {
                         ) ,
                         ),
                       onPressed: () {
-                      if(details['emailId']==""||details['password']==""){
-                        setState(() =>_text="Please Enter all details");
-                      }
-                      else{
-
-                         Navigator.pushNamed(
-                          context,
-                          '/friends',
-                          arguments: details,
-                      );
-                      }
-                     
+                      if (_key.currentState!.validate()) {
+                        signInUser();
+                      } 
                     },
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0),
@@ -206,11 +167,35 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
+        ),
+      ),
     );
   }
+
+  void signInUser() async{
+     dynamic authResult = await _auth.loginUser(
+        _emailContoller.text, _passwordController.text);
+    if (authResult == null) {
+      print('Invalid Credentials');
+    } else {
+      print(authResult.toString());
+      _passwordController.clear();
+      _emailContoller.clear();
+      Navigator.pushNamed(
+          context,
+          '/friends', 
+      );
+    }
+  }
 }
+
+
+

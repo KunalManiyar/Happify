@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:happify/signup.dart';
 import 'package:provider/provider.dart';
+import 'package:happify/Services/AuthenticationServices.dart';
 import 'signin.dart';
 import 'profile.dart';
 class Setting extends StatefulWidget {
@@ -12,13 +13,29 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   // This widget is the root of your application.
-  
+   final AuthenticationService _auth = AuthenticationService();
   bool _isObscure = true;
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _countryController = TextEditingController();
+  TextEditingController _mobileController = TextEditingController();
   @override
+  void initState() {
+    super.initState();
+   fetchUserData();
+  }
+  fetchUserData()async{
+    dynamic info=await _auth.getUserData();
+    if(info!=null){
+      _nameController.text=info[0];
+      _emailController.text=info[1];
+      _countryController.text=info[2];
+      _mobileController.text=info[3].toString();
+    }
+ 
+  }
   Widget build(BuildContext context) {
-    context.read<UserDetails>().setUserDetails();
-    print("In settings page");
-    print(context.watch<UserDetails>().userDetails);
+
     
     return GestureDetector(
       onTap: () {
@@ -104,11 +121,13 @@ class _SettingState extends State<Setting> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
+                            enabled: false,
+                            controller: _nameController,
                             onChanged: (value) {
                               //Do something with the user input.
                             },
                             decoration: InputDecoration(
-                              hintText: 'John Doe',
+                             
                               contentPadding: EdgeInsets.symmetric(
                                 // vertical: 10.0,
                                 horizontal: 20.0,
@@ -126,7 +145,7 @@ class _SettingState extends State<Setting> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
@@ -143,11 +162,13 @@ class _SettingState extends State<Setting> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
+                            enabled: false,
+                            controller: _emailController,
                             onChanged: (value) {
                               //Do something with the user input.
                             },
                             decoration: InputDecoration(
-                              hintText: 'john_doe@gmail.com',
+                              
                               contentPadding: EdgeInsets.symmetric(
                                 // vertical: 10.0,
                                 horizontal: 20.0,
@@ -165,7 +186,7 @@ class _SettingState extends State<Setting> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
@@ -173,7 +194,7 @@ class _SettingState extends State<Setting> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Country/Religion',
+                          'Country',
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
@@ -182,11 +203,13 @@ class _SettingState extends State<Setting> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
+                            enabled: false,
+                            controller: _countryController,
                             onChanged: (value) {
                               //Do something with the user input.
                             },
                             decoration: InputDecoration(
-                              hintText: 'India',
+                            
                               contentPadding: EdgeInsets.symmetric(
                                 // vertical: 10.0,
                                 horizontal: 20.0,
@@ -204,7 +227,7 @@ class _SettingState extends State<Setting> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10.0),
+                SizedBox(height: 5.0),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
@@ -221,11 +244,13 @@ class _SettingState extends State<Setting> {
                         child: SizedBox(
                           width: 250,
                           child: TextField(
+                            enabled: false,
+                            controller: _mobileController,
                             onChanged: (value) {
                               //Do something with the user input.
                             },
                             decoration: InputDecoration(
-                              hintText: 'john_doe@gmail.com',
+                              
                               contentPadding: EdgeInsets.symmetric(
                                 // vertical: 10.0,
                                 horizontal: 20.0,

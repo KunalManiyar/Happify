@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happify/Services/AuthenticationServices.dart';
 import 'settings.dart';
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -7,15 +8,16 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 class _ProfileState extends  State<Profile> {
+  var details={};
   
+  final AuthenticationService _auth = AuthenticationService();
   @override
-
   bool showText=false;
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-
+    details=arguments;
     if (arguments != null) print("In profile page ${arguments}");
-    String text=showText?"Submitted Successfully":"";
+   
     return MaterialApp(
        debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -80,13 +82,7 @@ class _ProfileState extends  State<Profile> {
                     margin: EdgeInsets.only(top: 180.0),
                     child: Column(
                       children: [
-                        Text(
-                          text,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.green,
-                          ),
-                        ),
+                        
                         SizedBox(
                           height: 10,
                         ),
@@ -110,10 +106,12 @@ class _ProfileState extends  State<Profile> {
                                 // arguments: arguments,
                                 // );
                                 // setState(()=>showText=!showText);
+                                // createUser();
                                 Navigator.pushNamed(
                                     context,
-                                    '/invites',
-                                  
+                                    '/occasions',
+                                    arguments:arguments
+
                                 );
 
                               },
@@ -132,4 +130,6 @@ class _ProfileState extends  State<Profile> {
       ),
     );
   }
+  
 }
+
