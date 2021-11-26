@@ -11,8 +11,6 @@ import 'Friends.dart';
 import 'Invites.dart';
 import 'Relations.dart';
 
-import 'Relations.dart';
-
 void main() {
   runApp(MultiProvider(
     providers: [
