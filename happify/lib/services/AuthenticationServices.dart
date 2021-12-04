@@ -7,12 +7,12 @@ class AuthenticationService {
 final CollectionReference userInfo=FirebaseFirestore.instance.collection('userInfo');
  // registration with email and password
 
-  Future createNewUser( String fullName,String email, String password,String country,double mobile, Map<String,Map> eventsList) async {
+  Future createNewUser( String fullName,String email, String password,String country,String profile,double mobile, Map<String,Map> eventsList) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user=result.user;
-      await DatabaseManager().createUserData(fullName,email, country, mobile,eventsList, user!.uid);
+      await DatabaseManager().createUserData(fullName,email, country,profile, mobile,eventsList, user!.uid);
       return user;
     } catch (e) {
       print(e.toString());

@@ -12,7 +12,7 @@ class User{
   final String mobileNo="";
 }
 class UserDetails with ChangeNotifier{
-  var _userDetails={};
+  Map _userDetails={};
   Map get userDetails=>_userDetails;
   void setUserDetails(){
     _userDetails=new _SignUpState().details;

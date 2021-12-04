@@ -1,6 +1,11 @@
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:happify/Services/AuthenticationServices.dart';
-import 'settings.dart';
+import 'pick_image.dart';
+import 'dart:io';
+
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
@@ -8,8 +13,8 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 class _ProfileState extends  State<Profile> {
-  var details={};
-  
+  Map details={};
+  File? profileImage; 
   final AuthenticationService _auth = AuthenticationService();
   @override
   bool showText=false;
@@ -48,7 +53,14 @@ class _ProfileState extends  State<Profile> {
                     child: CircleAvatar(
                       backgroundColor: Colors.orange[600],
                       radius: 100,
-                      child: Icon(
+                      // child: Icon(
+                      //   Icons.person,
+                      //   size: 180.0,
+                      //   color: Colors.white,
+                      // ),
+                      child:profileImage!=null?Image(
+                        image: FileImage(profileImage!),
+                      ): Icon(
                         Icons.person,
                         size: 180.0,
                         color: Colors.white,
@@ -60,9 +72,14 @@ class _ProfileState extends  State<Profile> {
                     width: 70.0,
                     margin: EdgeInsets.only(top: 180.0, left: 140.0),
                     child: FloatingActionButton(
-                      onPressed: () {
-                        // Add your onPressed code here!
-                      },
+                      onPressed: () => {
+                                                pickImage(ImageSource.gallery,
+                                                    (image) {
+                                                  setState(() {
+                                                    profileImage = image;
+                                                  });
+                                                })
+                                              },
                       child: const Icon(
                         Icons.add,
                         size: 60,
@@ -98,7 +115,7 @@ class _ProfileState extends  State<Profile> {
                                   fontSize: 22.0,
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed:() async{
                                 // arguments['profileImg']="Kunal";
                                 // Navigator.pushNamed(
                                 // context,
@@ -107,6 +124,21 @@ class _ProfileState extends  State<Profile> {
                                 // );
                                 // setState(()=>showText=!showText);
                                 // createUser();
+                                if (profileImage != null) {
+                                                      final ref = FirebaseStorage
+                                                          .instance
+                                                          .ref()
+                                                          .child(
+                                                              'profile_images')
+                                                          .child(details['email'] +
+                                                              '.jpg');
+                                                      await ref.putFile(
+                                                          profileImage!);
+                                                      print('Step1');
+                                                      details['profile'] = await ref
+                                                          .getDownloadURL();
+                                                     
+                                                    }
                                 Navigator.pushNamed(
                                     context,
                                     '/occasions',

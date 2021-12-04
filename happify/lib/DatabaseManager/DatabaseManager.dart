@@ -6,10 +6,10 @@ class DatabaseManager {
   final CollectionReference userInfo=FirebaseFirestore.instance.collection('userInfo');
 
   Future<void> createUserData(
-      String name,String email, String country, double mobileNo, Map<String,Map> eventsList, String uid) async {
+      String name,String email, String country,String profile, double mobileNo, Map<String,Map> eventsList, String uid) async {
     return await userInfo
         .doc(uid)
-        .set({'name': name,'email':email, 'country': country, 'mobileNo': mobileNo,'events':eventsList});
+        .set({'name': name,'email':email, 'country': country,'profile':profile, 'mobileNo': mobileNo,'events':eventsList});
   }
 
 
