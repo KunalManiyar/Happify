@@ -1,4 +1,3 @@
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -12,24 +11,26 @@ class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
 }
-class _ProfileState extends  State<Profile> {
-  Map details={};
-  File? profileImage; 
+
+class _ProfileState extends State<Profile> {
+  Map details = {};
+  File? profileImage;
   final AuthenticationService _auth = AuthenticationService();
   @override
-  bool showText=false;
+  bool showText = false;
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    details=arguments;
+    details = arguments;
     if (arguments != null) print("In profile page ${arguments}");
-   
+
     return MaterialApp(
-       debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-           leading: IconButton(icon:Icon(Icons.arrow_back),
-            onPressed:() => Navigator.pop(context),
-          ) ,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          ),
           automaticallyImplyLeading: true,
           title: Text(
             "Profile",
@@ -58,13 +59,15 @@ class _ProfileState extends  State<Profile> {
                       //   size: 180.0,
                       //   color: Colors.white,
                       // ),
-                      child:profileImage!=null?Image(
-                        image: FileImage(profileImage!),
-                      ): Icon(
-                        Icons.person,
-                        size: 180.0,
-                        color: Colors.white,
-                      ),
+                      child: profileImage != null
+                          ? Image(
+                              image: FileImage(profileImage!),
+                            )
+                          : Icon(
+                              Icons.person,
+                              size: 180.0,
+                              color: Colors.white,
+                            ),
                     ),
                   ),
                   Container(
@@ -73,13 +76,12 @@ class _ProfileState extends  State<Profile> {
                     margin: EdgeInsets.only(top: 180.0, left: 140.0),
                     child: FloatingActionButton(
                       onPressed: () => {
-                                                pickImage(ImageSource.gallery,
-                                                    (image) {
-                                                  setState(() {
-                                                    profileImage = image;
-                                                  });
-                                                })
-                                              },
+                        pickImage(ImageSource.gallery, (image) {
+                          setState(() {
+                            profileImage = image;
+                          });
+                        })
+                      },
                       child: const Icon(
                         Icons.add,
                         size: 60,
@@ -87,19 +89,15 @@ class _ProfileState extends  State<Profile> {
                       backgroundColor: Colors.orange[600],
                     ),
                   ),
-                  
                 ],
               ),
-               
               Container(
-                
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
                     margin: EdgeInsets.only(top: 180.0),
                     child: Column(
                       children: [
-                        
                         SizedBox(
                           height: 10,
                         ),
@@ -115,7 +113,7 @@ class _ProfileState extends  State<Profile> {
                                   fontSize: 22.0,
                                 ),
                               ),
-                              onPressed:() async{
+                              onPressed: () async {
                                 // arguments['profileImg']="Kunal";
                                 // Navigator.pushNamed(
                                 // context,
@@ -125,27 +123,18 @@ class _ProfileState extends  State<Profile> {
                                 // setState(()=>showText=!showText);
                                 // createUser();
                                 if (profileImage != null) {
-                                                      final ref = FirebaseStorage
-                                                          .instance
-                                                          .ref()
-                                                          .child(
-                                                              'profile_images')
-                                                          .child(details['email'] +
-                                                              '.jpg');
-                                                      await ref.putFile(
-                                                          profileImage!);
-                                                      print('Step1');
-                                                      details['profile'] = await ref
-                                                          .getDownloadURL();
-                                                     
-                                                    }
-                                Navigator.pushNamed(
-                                    context,
-                                    '/occasions',
-                                    arguments:arguments
-
-                                );
-
+                                  final ref = FirebaseStorage.instance
+                                      .ref()
+                                      .child('profile_images')
+                                      .child(details['email'] + '.jpg');
+                                  await ref.putFile(profileImage!);
+                                  print('Step1');
+                                  details['profile'] =
+                                      await ref.getDownloadURL();
+                                  print(details);
+                                }
+                                Navigator.pushNamed(context, '/occasions',
+                                    arguments: arguments);
                               },
                               shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0),
@@ -162,6 +151,4 @@ class _ProfileState extends  State<Profile> {
       ),
     );
   }
-  
 }
-

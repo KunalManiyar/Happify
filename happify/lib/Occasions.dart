@@ -163,8 +163,7 @@ class _OccasionsState extends State<Occasions> {
 
   void createUser() async {
     dynamic result = await _auth.createNewUser(
-      details['fullName'],
-        details['email'], details['password'],details['country'],details['profile'],double.parse(details['mobileNo']),eventsList);
+      details['fullName'],details['email'], details['password'],details['country'],details['profile'],double.parse(details['mobileNo']),eventsList);
     if (result == null) {
       print('Email is not valid');
     } else {

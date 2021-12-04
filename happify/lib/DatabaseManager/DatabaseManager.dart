@@ -7,22 +7,12 @@ class DatabaseManager {
       FirebaseFirestore.instance.collection('userInfo');
 
   Future<void> createUserData(
-      String name,
-      String email,
-      String country,
-      String profile,
-      double mobileNo,
-      Map<String, Map> eventsList,
-      String uid) async {
-    return await userInfo.doc(uid).set({
-      'name': name,
-      'email': email,
-      'country': country,
-      'profile': profile,
-      'mobileNo': mobileNo,
-      'events': eventsList,
-    });
+      String name,String email, String country,String profile, double mobileNo, Map<String,Map> eventsList, String uid) async {
+    return await userInfo
+        .doc(uid)
+        .set({'name': name,'email':email, 'country': country,'profile':profile, 'mobileNo': mobileNo,'events':eventsList});
   }
+
 
 //   Stream<QuerySnapshot> get users{
 //     return userInfo.snapshots();
