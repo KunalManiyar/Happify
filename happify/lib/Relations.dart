@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happify/Invites.dart';
 
 class Relations extends StatefulWidget {
   const Relations({Key? key}) : super(key: key);
@@ -13,16 +14,26 @@ class _RelationsState extends State<Relations> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-            floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Center(
-            child: const Icon(
-              Icons.add,
-              size: 35,
+            floatingActionButton: RaisedButton(
+          textColor: Colors.white,
+          color: Colors.orange[600],
+          child: Padding(
+            padding: EdgeInsets.all(6.0),
+            child: Text(
+              'invite',
+              style: TextStyle(
+                fontSize: 18.0,
+              ),
             ),
           ),
-          backgroundColor: Colors.orange[600],
+          onPressed: () {
+            Navigator.pushNamed(context, '/invites');
+          },
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(25.0),
+          ),
         )
+
             // body: ListView(
             //   addAutomaticKeepAlives: true,
             //   children: [

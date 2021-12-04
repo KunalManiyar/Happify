@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'Status.dart';
+import 'package:happify/DatabaseManager/DatabaseManager.dart';
+import 'package:happify/services/AuthenticationServices.dart';
 import 'Users.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class Invited extends StatelessWidget {
   @override
@@ -12,6 +15,7 @@ class Invited extends StatelessWidget {
   }
 }
 
+
 class Invites extends StatefulWidget {
   const Invites({Key? key}) : super(key: key);
 
@@ -20,15 +24,34 @@ class Invites extends StatefulWidget {
 }
 
 class _InvitesState extends State<Invites> {
-  @override
-  List<User> user = [
-    User(username: 'Devs4', send_invite: 'Invite'),
-    User(username: 'ParthShah', send_invite: 'Invite'),
-    User(username: 'RajSM', send_invite: 'Invite'),
-    User(username: 'Ravi#123', send_invite: 'Invite'),
-  ];
+  final AuthenticationService _auth = AuthenticationService();
+ 
+  List userProfileList = [];
+  void initState() {
+    super.initState();
+    fetchDatabaseList();
+    // fetchCurrentUser();
+  }
 
-  Set<String> user_selected = {};
+  fetchDatabaseList() async {
+    dynamic resultant = await DatabaseManager().getUsersList();
+    if (resultant == null) {
+      print('Unable to retrieve the list');
+    } else {
+      setState(() {
+        userProfileList = resultant;
+      });
+    }
+  }
+
+  // var current_user;
+
+  // fetchCurrentUser() async {
+  //   current_user = await _auth.getUserData();
+  //   if (current_user == null) {
+  //     print('No user present');
+  //   }
+  // }
 
   var count = 0;
   void _incrementCounter() {
@@ -38,60 +61,18 @@ class _InvitesState extends State<Invites> {
     print(count);
   }
 
-  Widget userTemplate(user) {
-    return Container(
-        margin: EdgeInsets.symmetric(
-          vertical: 10,
-        ),
-        height: 50,
-        child: Row(
-          children: [
-            Container(
-              child: CircleAvatar(
-                backgroundColor: Colors.orange[600],
-                radius: 50,
-                child: Icon(
-                  Icons.person,
-                  size: 40.0,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 5.0,
-            ),
-            Text('${user.username}', style: TextStyle(fontSize: 22)),
-            new Spacer(),
-            RaisedButton(
-              textColor: Colors.white,
-              color: Colors.orange[600],
-              child: Padding(
-                padding: EdgeInsets.all(6.0),
-                child: Text(
-                  '${user.send_invite}',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  ),
-                ),
-              ),
-              onPressed: () {
-                _incrementCounter();
-                setState(() {
-                  user.send_invite = "Sent";
-                  user_selected.add(user.username);
-                });
-                Navigator.pushNamed(context, '/status',
-                    arguments: user_selected);
-              },
-              shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(25.0),
-              ),
-            ),
-          ],
-        ));
-  }
+  // void _selected_users(username) {
+  //   setState(() {
+  //     selected.add(username);
+  //   });
+  // }
+
+  // void update(){
+
+  // }
 
   Widget build(BuildContext context) {
+    print(userProfileList);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -116,8 +97,48 @@ class _InvitesState extends State<Invites> {
                   )
               ],
             ),
-            body: Column(
-              children: user.map((user) => userTemplate(user)).toList(),
-            )));
+            body: Container(
+                child: ListView.builder(
+                    itemCount: userProfileList.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: ListTile(
+                        title: Text(userProfileList[index]['name']),
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.orange[600],
+                          radius: 50,
+                          child: Icon(
+                            Icons.person,
+                            size: 40.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        trailing: RaisedButton(
+                          textColor: Colors.white,
+                          color: Colors.orange[600],
+                          child: Padding(
+                            padding: EdgeInsets.all(6.0),
+                            child: Text(
+                              'Invite',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            _incrementCounter();
+                            //   setState(() {
+                            //     // user.send_invite = "Sent";
+                            //     // user_selected.add(user.username);
+                            //   });
+                            //   // Navigator.pushNamed(context, '/status',
+                            //   //     arguments: user_selected);
+                          },
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(25.0),
+                          ),
+                        ),
+                      ));
+                    }))));
   }
 }

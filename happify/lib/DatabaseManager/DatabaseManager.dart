@@ -1,35 +1,63 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:happify/Users.dart';
 
 class DatabaseManager {
-  final CollectionReference userInfo=FirebaseFirestore.instance.collection('userInfo');
+  final CollectionReference userInfo =
+      FirebaseFirestore.instance.collection('userInfo');
 
   Future<void> createUserData(
-      String name,String email, String country,String profile, double mobileNo, Map<String,Map> eventsList, String uid) async {
-    return await userInfo
-        .doc(uid)
-        .set({'name': name,'email':email, 'country': country,'profile':profile, 'mobileNo': mobileNo,'events':eventsList});
+      String name,
+      String email,
+      String country,
+      String profile,
+      double mobileNo,
+      Map<String, Map> eventsList,
+      String uid) async {
+    return await userInfo.doc(uid).set({
+      'name': name,
+      'email': email,
+      'country': country,
+      'profile': profile,
+      'mobileNo': mobileNo,
+      'events': eventsList,
+    });
   }
-
-
 
 //   Stream<QuerySnapshot> get users{
 //     return userInfo.snapshots();
 //   }
-Future getCurrentUserData(uid) async{
-  try{
-    DocumentSnapshot ds=await userInfo.doc(uid).get();
-    String name =ds.get('name');
-    String email=ds.get('email');
-    String country =ds.get('country');
-    double mobileNo =ds.get('mobileNo');
-    // String name =ds.get('name');
-    return [name,email,country,mobileNo];
-  }catch(e){
-    print(e.toString());
-    return null;
+
+  String current_name = " ";
+
+  Future getCurrentUserData(uid) async {
+    try {
+      DocumentSnapshot ds = await userInfo.doc(uid).get();
+      String name = ds.get('name');
+      current_name = name;
+      String email = ds.get('email');
+      String country = ds.get('country');
+      double mobileNo = ds.get('mobileNo');
+      // String name =ds.get('name');
+      return [name, email, country, mobileNo];
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 
-} 
+  Future getUsersList() async {
+    List itemsList = [];
+    try {
+      await userInfo.get().then((querySnapshot) {
+        querySnapshot.docs.forEach((element) {
+          if (element['name'] != current_name) itemsList.add(element.data());
+        });
+      });
+      return itemsList;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }

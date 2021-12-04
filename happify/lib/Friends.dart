@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:happify/main.dart';
 import 'package:happify/Services/AuthenticationServices.dart';
 import 'Relations.dart';
-import 'Status.dart';
 import 'Events.dart';
 import 'Invites.dart';
 
@@ -19,7 +18,7 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
   late TabController _controller;
   void initState() {
     super.initState();
-    _controller = TabController(length: 3, vsync: this, initialIndex: 0);
+    _controller = TabController(length: 2, vsync: this, initialIndex: 0);
   }
   final AuthenticationService _auth = AuthenticationService();
   Widget build(BuildContext context) {
@@ -98,13 +97,6 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
                 ),
               )),
               Tab(
-                  child: Text(
-                'Status',
-                style: TextStyle(
-                  fontSize: 21.5,
-                ),
-              )),
-              Tab(
                   child: Text('Events',
                       style: TextStyle(
                         fontSize: 21.5,
@@ -117,8 +109,6 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
           controller: _controller,
           children: [
             Relations(),
-            Status(
-            ),
             Events()
           ],
         ),
