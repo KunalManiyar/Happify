@@ -6,6 +6,8 @@ class DatabaseManager {
   final CollectionReference userInfo =
       FirebaseFirestore.instance.collection('userInfo');
 
+  final CollectionReference userFriends=FirebaseFirestore.instance.collection('userFriends');
+
   Future<void> createUserData(
       String name,
       String email,
@@ -13,6 +15,7 @@ class DatabaseManager {
       String profile,
       double mobileNo,
       Map<String, Map> eventsList,
+      bool invited,
       String uid) async {
     return await userInfo.doc(uid).set({
       'name': name,
@@ -21,6 +24,7 @@ class DatabaseManager {
       'profile': profile,
       'mobileNo': mobileNo,
       'events': eventsList,
+      'invited':invited
     });
   }
 
@@ -60,4 +64,5 @@ class DatabaseManager {
       return null;
     }
   }
+ 
 }
