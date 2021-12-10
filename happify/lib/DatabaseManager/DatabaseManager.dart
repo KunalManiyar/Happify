@@ -6,11 +6,26 @@ class DatabaseManager {
   final CollectionReference userInfo =
       FirebaseFirestore.instance.collection('userInfo');
 
+  final CollectionReference userFriends=FirebaseFirestore.instance.collection('userFriends');
+
   Future<void> createUserData(
-      String name,String email, String country,String profile, double mobileNo, Map<String,Map> eventsList, String uid) async {
-    return await userInfo
-        .doc(uid)
-        .set({'name': name,'email':email, 'country': country,'profile':profile, 'mobileNo': mobileNo,'events':eventsList});
+      String name,
+      String email,
+      String country,
+      String profile,
+      double mobileNo,
+      Map<String, Map> eventsList,
+      bool invited,
+      String uid) async {
+    return await userInfo.doc(uid).set({
+      'name': name,
+      'email': email,
+      'country': country,
+      'profile': profile,
+      'mobileNo': mobileNo,
+      'events': eventsList,
+      'invited':invited
+    });
   }
 
 
@@ -50,4 +65,5 @@ class DatabaseManager {
       return null;
     }
   }
+ 
 }

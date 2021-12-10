@@ -17,13 +17,16 @@ class AuthenticationService {
       String country,
       String profile,
       double mobile,
-      Map<String, Map<String, String>> eventsList) async {
+      Map<String, Map> eventsList,
+      invited) async {
+
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User? user = result.user;
-      await DatabaseManager().createUserData(
-          fullName, email, country, profile, mobile, eventsList, user!.uid);
+      await DatabaseManager().createUserData(fullName, email, country, profile,
+          mobile, eventsList, invited, user!.uid);
+      // await DatabaseFriendsManager(uid: user.uid).updateUserData({"Dev": true});
       return user;
     } catch (e) {
       print(e.toString());
@@ -61,5 +64,22 @@ class AuthenticationService {
     // here you write the codes to input the data into firestore
   }
 
-  Future updateUserData() async {}
+  Future updateUserData(List friends) async {
+    final User? user = _auth.currentUser;
+    final uid = user!.uid;
+    await DatabaseFriendsManager().updateUserData(uid, friends);
+  }
+
+  Future getUserFriends() async {
+    // ignore: await_only_futures
+    final User? user = await _auth.currentUser;
+    final uid = user!.uid;
+    print("Hello" + uid);
+
+    dynamic info = await DatabaseFriendsManager().getUserFriends(uid);
+    if (info == null) {
+      return false;
+    }
+    return info;
+  }
 }
