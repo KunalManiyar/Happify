@@ -18,7 +18,7 @@ class DatabaseFriendsManager {
       List friends=ds.get('friends');
       
       print(friends);
-      return [friends];
+      return friends;
     } catch (e) {
       print(e.toString());
       return null;

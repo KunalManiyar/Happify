@@ -184,6 +184,7 @@ class _InvitesState extends State<Invites> {
                              friend['name']=userProfileList[index]['name'];
                              friend['events']=userProfileList[index]['events'];
                              friend['invited']=userProfileList[index]['invited'];
+                             friend['profile']=userProfileList[index]['profile'];
                             invitedPeople.add(friend);
                             // print(invitedPeople);
                             _incrementCounter();
