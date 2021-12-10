@@ -13,6 +13,7 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 class _ProfileState extends  State<Profile> {
+
   Map details={};
   File? profileImage; 
   final AuthenticationService _auth = AuthenticationService();
@@ -50,22 +51,28 @@ class _ProfileState extends  State<Profile> {
                     margin: EdgeInsets.only(top: 50.0),
                     height: 200,
                     width: 200,
-                    child: CircleAvatar(
+                    child:profileImage!=null?CircleAvatar(
+                      backgroundImage: new FileImage(profileImage!), radius: 100.0,
+                    ):CircleAvatar(
                       backgroundColor: Colors.orange[600],
                       radius: 100,
-                      // child: Icon(
-                      //   Icons.person,
-                      //   size: 180.0,
-                      //   color: Colors.white,
-                      // ),
-                      child:profileImage!=null?Image(
-                        image: FileImage(profileImage!),
-                      ): Icon(
+                      child:Icon(
                         Icons.person,
                         size: 180.0,
                         color: Colors.white,
                       ),
                     ),
+                    // child: CircleAvatar(
+                    //   backgroundColor: Colors.orange[600],
+                    //   radius: 100,
+                    //   child:profileImage!=null?Image(
+                    //     image: FileImage(profileImage!),
+                    //   ): Icon(
+                    //     Icons.person,
+                    //     size: 180.0,
+                    //     color: Colors.white,
+                    //   ),
+                    // ),
                   ),
                   Container(
                     height: 70.0,

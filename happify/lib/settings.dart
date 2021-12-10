@@ -19,6 +19,7 @@ class _SettingState extends State<Setting> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _countryController = TextEditingController();
   TextEditingController _mobileController = TextEditingController();
+  String _profileImgController="" ;
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,8 @@ class _SettingState extends State<Setting> {
       _emailController.text=info[1];
       _countryController.text=info[2];
       _mobileController.text=info[3].toString();
+      _profileImgController=info[4];
+      print(_profileImgController);
     }
  
   }
@@ -75,31 +78,42 @@ class _SettingState extends State<Setting> {
                           margin: EdgeInsets.only(top: 15.0),
                           height: 200,
                           width: 200,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.orange[600],
-                            radius: 100,
-                            child: Icon(
-                              Icons.person,
-                              size: 180.0,
-                              color: Colors.white,
-                            ),
-                          ),
+                          // child: CircleAvatar(
+                          //   backgroundColor: Colors.orange[600],
+                          //   radius: 100,
+                          //   child: Icon(
+                          //     Icons.person,
+                          //     size: 180.0,
+                          //     color: Colors.white,
+                          //   ),
+                          // ),
+                          child:_profileImgController!=""?CircleAvatar(
+                      backgroundImage: NetworkImage(_profileImgController), radius: 100.0,
+                    ):CircleAvatar(
+                      backgroundColor: Colors.orange[600],
+                      radius: 100,
+                      child:Icon(
+                        Icons.person,
+                        size: 180.0,
+                        color: Colors.white,
+                      ),
+                    ),
                         ),
-                        Container(
-                          height: 60.0,
-                          width: 60.0,
-                          margin: EdgeInsets.only(top: 150.0, left: 140.0),
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              // Add your onPressed code here!
-                            },
-                            child: const Icon(
-                              Icons.add,
-                              size: 60,
-                            ),
-                            backgroundColor: Colors.orange[600],
-                          ),
-                        ),
+                        // Container(
+                        //   height: 60.0,
+                        //   width: 60.0,
+                        //   margin: EdgeInsets.only(top: 150.0, left: 140.0),
+                        //   child: FloatingActionButton(
+                        //     onPressed: () {
+                        //       // Add your onPressed code here!
+                        //     },
+                        //     child: const Icon(
+                        //       Icons.add,
+                        //       size: 60,
+                        //     ),
+                        //     backgroundColor: Colors.orange[600],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

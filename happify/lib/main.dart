@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:happify/FirstPage.dart';
 import 'package:happify/Users.dart';
 import 'package:happify/main.dart';
 import 'package:provider/provider.dart';
@@ -24,8 +25,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/invites',
+      initialRoute: '/firstPage',
       routes: {
+        '/firstPage': (context) => FirstPage(),
         '/occasions': (context) => Occasions(),
         '/friends': (context) => Friends(),
         '/relations': (context) => Relations(),

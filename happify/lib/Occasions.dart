@@ -33,6 +33,8 @@ class _OccasionsState extends State<Occasions> {
           leading: IconButton(icon:Icon(Icons.arrow_back),
             onPressed:() => Navigator.pop(context),
           ) ,
+          title: Text('Occasions'),
+          centerTitle: true,
           backgroundColor: Colors.orange[600],
           automaticallyImplyLeading: false,
           actions: [
@@ -43,12 +45,12 @@ class _OccasionsState extends State<Occasions> {
                 openDialogueBox(context);
               },
             ),
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                Navigator.pushNamed(context, '/settings');
-              },
-            ),
+            // IconButton(
+            //   icon: Icon(Icons.settings),
+            //   onPressed: () {
+            //     Navigator.pushNamed(context, '/settings');
+            //   },
+            // ),
           
           ],
         ),
@@ -107,7 +109,7 @@ class _OccasionsState extends State<Occasions> {
                   ),
           ],
         ):Container(
-                  child: Center(child: Text("Enter atleast one occassion"),),
+                  child: Center(child: Text("Enter atleast one occassion",style: TextStyle(fontSize: 20),),),
                 )
                 );
   }

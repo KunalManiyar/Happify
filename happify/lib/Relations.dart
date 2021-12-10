@@ -15,6 +15,7 @@ class _RelationsState extends State<Relations> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             floatingActionButton: RaisedButton(
+              
           textColor: Colors.white,
           color: Colors.orange[600],
           child: Padding(
@@ -32,6 +33,7 @@ class _RelationsState extends State<Relations> {
           shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(25.0),
           ),
+          
         )
 
             // body: ListView(

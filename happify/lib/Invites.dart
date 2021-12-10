@@ -32,8 +32,9 @@ class _InvitesState extends State<Invites> {
   bool invited=false;
   void initState() {
     super.initState();
-      fetchUserFriends().then((value) =>{if(value==false)  fetchDatabaseList()});
-    // fetchCurrentUser();
+      // fetchUserFriends().then((value) =>{if(value==false)  fetchDatabaseList()});
+    fetchCurrentUser();
+    fetchDatabaseList();
   }
   Future<bool> fetchUserFriends() async{
         dynamic info=await _auth.getUserFriends();
@@ -91,12 +92,18 @@ class _InvitesState extends State<Invites> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             appBar: AppBar(
+              leading: IconButton(icon:Icon(Icons.arrow_back),
+                onPressed:() => Navigator.pop(context),
+              ), 
               title: Text(
-                " Invite",
+                "Invite Friends",
+                
                 style: TextStyle(
                   fontSize: 24,
                 ),
+                
               ),
+              centerTitle: true,
               backgroundColor: Colors.orange[600],
               actions: <Widget>[
                 if (count != 0)
@@ -105,12 +112,28 @@ class _InvitesState extends State<Invites> {
                       Icons.check,
                       color: Colors.white,
                     ),
+                    tooltip: "Send Request",
                     onPressed: () {
                       invited=true;
                      updateUser(invitedPeople);
                       Navigator.pushNamed(context, '/friends');
                     },
-                  )
+                    
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.settings),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/settings');
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.exit_to_app),
+                    onPressed: () async{
+                      await _auth.signOut().then((result){
+                        Navigator.pushNamed(context, '/signin');
+                      });
+                    },
+                  ),
               ],
             ),
             body: Container(
@@ -118,17 +141,32 @@ class _InvitesState extends State<Invites> {
                     itemCount: userProfileList.length,
                     itemBuilder: (context, index) {
                       return Card(
-                          child: ListTile(
+                        child: ListTile(
                         title: Text(userProfileList[index]['name']),
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.orange[600],
-                          radius: 50,
-                          child: Icon(
-                            Icons.person,
-                            size: 40.0,
-                            color: Colors.white,
+
+
+                        leading:userProfileList[index]['profile']!=""?CircleAvatar(
+                            backgroundImage: NetworkImage(userProfileList[index]['profile']), radius: 50.0,
+                          ):CircleAvatar(
+                            backgroundColor: Colors.orange[600],
+                            radius: 50,
+                            child:Icon(
+                              Icons.person,
+                              size: 40.0,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
+
+
+                        // leading: CircleAvatar(
+                        //   backgroundColor: Colors.orange[600],
+                        //   radius: 50,
+                        //   child: Icon(
+                        //     Icons.person,
+                        //     size: 40.0,
+                        //     color: Colors.white,
+                        //   ),
+                        // ),
                         trailing: RaisedButton(
                           textColor: Colors.white,
                           color: Colors.orange[600],

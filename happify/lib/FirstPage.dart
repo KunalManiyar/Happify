@@ -1,7 +1,26 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class FirstPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:happify/signin.dart';
+class FirstPage extends StatefulWidget{
+  const FirstPage({Key? key}) : super(key: key);
+
   @override
+  _FirstPageState createState() => _FirstPageState();
+}
+class _FirstPageState extends State<FirstPage> {
+  @override
+    void initState() {
+    super.initState();
+    Timer(Duration(seconds: 3),
+          ()=>Navigator.pushReplacement(context,
+              MaterialPageRoute(builder:
+                (context) =>SignIn()
+              )
+          )
+     );
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,

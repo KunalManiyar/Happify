@@ -39,9 +39,7 @@ class _SignInState extends State<SignIn> {
         home: Scaffold(
           resizeToAvoidBottomInset :false,
           appBar: AppBar(
-            leading: GestureDetector(
-              child: Icon(Icons.menu),
-            ),
+          
             title: Text(
               "SIGN IN",
               style: TextStyle(

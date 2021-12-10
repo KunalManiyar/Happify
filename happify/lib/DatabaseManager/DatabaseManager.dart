@@ -42,8 +42,9 @@ class DatabaseManager {
       String email = ds.get('email');
       String country = ds.get('country');
       double mobileNo = ds.get('mobileNo');
+      String profileImg=ds.get('profile');
       // String name =ds.get('name');
-      return [name, email, country, mobileNo];
+      return [name, email, country, mobileNo,profileImg];
     } catch (e) {
       print(e.toString());
       return null;

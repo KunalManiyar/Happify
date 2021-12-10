@@ -30,11 +30,12 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
             onPressed:() => Navigator.pop(context),
           ) ,
           title: Text(
-            " Happify",
+            "Happify",
             style: TextStyle(
               fontSize: 24,
             ),
           ),
+          centerTitle: true,
           backgroundColor: Colors.orange[600],
           actions: [
             // IconButton(
