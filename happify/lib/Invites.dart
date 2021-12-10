@@ -5,7 +5,6 @@ import 'package:happify/services/AuthenticationServices.dart';
 import 'Users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class Invited extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,38 +15,37 @@ class Invited extends StatelessWidget {
   }
 }
 
-
 class Invites extends StatefulWidget {
   const Invites({Key? key}) : super(key: key);
-
   @override
   _InvitesState createState() => _InvitesState();
 }
 
 class _InvitesState extends State<Invites> {
   final AuthenticationService _auth = AuthenticationService();
- 
-  List userProfileList=[];
-  List invitedPeople=[];
-  bool invited=false;
+  List userProfileList = [];
+  List invitedPeople = [];
+  bool invited = false;
+
   void initState() {
     super.initState();
-      fetchUserFriends().then((value) =>{if(value==false)  fetchDatabaseList()});
+    fetchUserFriends()
+        .then((value) => {if (value == false) fetchDatabaseList()});
     // fetchCurrentUser();
   }
-  Future<bool> fetchUserFriends() async{
-        dynamic info=await _auth.getUserFriends();
-        invited=info[0];
-        if (info!=null && info[0]==true){
-          print(info);
-          setState(() {
-            
-              userProfileList=info[1];
-          });
-              return true;
-            }
-          return false;
+
+  Future<bool> fetchUserFriends() async {
+    dynamic info = await _auth.getUserFriends();
+    print(info);
+    if (info == null) {
+      setState(() {
+        userProfileList = info;
+      });
+      return true;
+    }
+    return false;
   }
+
   Future fetchDatabaseList() async {
     dynamic resultant = await DatabaseManager().getUsersList();
     if (resultant == null) {
@@ -106,8 +104,8 @@ class _InvitesState extends State<Invites> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      invited=true;
-                     updateUser(invitedPeople);
+                      invited = true;
+                      updateUser(invitedPeople);
                       Navigator.pushNamed(context, '/friends');
                     },
                   )
@@ -142,10 +140,12 @@ class _InvitesState extends State<Invites> {
                             ),
                           ),
                           onPressed: () {
-                             Map friend={};
-                             friend['name']=userProfileList[index]['name'];
-                             friend['events']=userProfileList[index]['events'];
-                             friend['invited']=userProfileList[index]['invited'];
+                            Map friend = {};
+                            friend['name'] = userProfileList[index]['name'];
+                            friend['events'] = userProfileList[index]['events'];
+                            userProfileList[index]['invited'] = true;
+                            friend['invited'] =
+                                userProfileList[index]['invited'];
                             invitedPeople.add(friend);
                             // print(invitedPeople);
                             _incrementCounter();
@@ -161,19 +161,15 @@ class _InvitesState extends State<Invites> {
                           ),
                         ),
                       ));
-                    }
-                    )
-                    )
-                    )
-                    );
+                    }))));
   }
-    void updateUser(List invitedPeople) async {
-      await _auth.updateUserData(invitedPeople);
+
+  void updateUser(List invitedPeople) async {
+    await _auth.updateUserData(invitedPeople);
     // if (result == null) {
     //   print('Email is not valid');
     // } else {
     //   print(result.toString());
-      
     // }
   }
 }
