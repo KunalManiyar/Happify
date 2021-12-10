@@ -5,7 +5,6 @@ import 'package:happify/services/AuthenticationServices.dart';
 import 'Users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class Invited extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,6 @@ class Invited extends StatelessWidget {
   }
 }
 
-
 class Invites extends StatefulWidget {
   const Invites({Key? key}) : super(key: key);
 
@@ -26,29 +24,27 @@ class Invites extends StatefulWidget {
 
 class _InvitesState extends State<Invites> {
   final AuthenticationService _auth = AuthenticationService();
- 
-  List userProfileList=[];
-  List invitedPeople=[];
-  bool invited=false;
+
+  List userProfileList = [];
+  List invitedPeople = [];
+  bool invited = false;
   void initState() {
     super.initState();
-      // fetchUserFriends().then((value) =>{if(value==false)  fetchDatabaseList()});
+    // fetchUserFriends().then((value) =>{if(value==false)  fetchDatabaseList()});
     fetchCurrentUser();
     fetchDatabaseList();
   }
-  Future<bool> fetchUserFriends() async{
-        dynamic info=await _auth.getUserFriends();
-        invited=info[0];
-        if (info!=null && info[0]==true){
-          print(info);
-          setState(() {
-            
-              userProfileList=info[1];
-          });
-              return true;
-            }
-          return false;
+
+  fetchUserFriends() async {
+    dynamic info = await _auth.getUserFriends();
+    if (info != null) {
+      print(info);
+      setState(() {
+        userProfileList = info[1];
+      });
+    }
   }
+
   Future fetchDatabaseList() async {
     dynamic resultant = await DatabaseManager().getUsersList();
     if (resultant == null) {
@@ -92,16 +88,15 @@ class _InvitesState extends State<Invites> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             appBar: AppBar(
-              leading: IconButton(icon:Icon(Icons.arrow_back),
-                onPressed:() => Navigator.pop(context),
-              ), 
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.pop(context),
+              ),
               title: Text(
                 "Invite Friends",
-                
                 style: TextStyle(
                   fontSize: 24,
                 ),
-                
               ),
               centerTitle: true,
               backgroundColor: Colors.orange[600],
@@ -114,26 +109,25 @@ class _InvitesState extends State<Invites> {
                     ),
                     tooltip: "Send Request",
                     onPressed: () {
-                      invited=true;
-                     updateUser(invitedPeople);
+                      invited = true;
+                      updateUser(invitedPeople);
                       Navigator.pushNamed(context, '/friends');
                     },
-                    
                   ),
-                  IconButton(
-                    icon: Icon(Icons.settings),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/settings');
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.exit_to_app),
-                    onPressed: () async{
-                      await _auth.signOut().then((result){
-                        Navigator.pushNamed(context, '/signin');
-                      });
-                    },
-                  ),
+                IconButton(
+                  icon: Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/settings');
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () async {
+                    await _auth.signOut().then((result) {
+                      Navigator.pushNamed(context, '/signin');
+                    });
+                  },
+                ),
               ],
             ),
             body: Container(
@@ -141,22 +135,24 @@ class _InvitesState extends State<Invites> {
                     itemCount: userProfileList.length,
                     itemBuilder: (context, index) {
                       return Card(
-                        child: ListTile(
+                          child: ListTile(
                         title: Text(userProfileList[index]['name']),
 
-
-                        leading:userProfileList[index]['profile']!=""?CircleAvatar(
-                            backgroundImage: NetworkImage(userProfileList[index]['profile']), radius: 50.0,
-                          ):CircleAvatar(
-                            backgroundColor: Colors.orange[600],
-                            radius: 50,
-                            child:Icon(
-                              Icons.person,
-                              size: 40.0,
-                              color: Colors.white,
-                            ),
-                          ),
-
+                        leading: userProfileList[index]['profile'] != ""
+                            ? CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    userProfileList[index]['profile']),
+                                radius: 50.0,
+                              )
+                            : CircleAvatar(
+                                backgroundColor: Colors.orange[600],
+                                radius: 50,
+                                child: Icon(
+                                  Icons.person,
+                                  size: 40.0,
+                                  color: Colors.white,
+                                ),
+                              ),
 
                         // leading: CircleAvatar(
                         //   backgroundColor: Colors.orange[600],
@@ -180,11 +176,13 @@ class _InvitesState extends State<Invites> {
                             ),
                           ),
                           onPressed: () {
-                             Map friend={};
-                             friend['name']=userProfileList[index]['name'];
-                             friend['events']=userProfileList[index]['events'];
-                             friend['invited']=userProfileList[index]['invited'];
-                             friend['profile']=userProfileList[index]['profile'];
+                            Map friend = {};
+                            friend['name'] = userProfileList[index]['name'];
+                            friend['events'] = userProfileList[index]['events'];
+                            friend['invited'] =
+                                userProfileList[index]['invited'];
+                            friend['profile'] =
+                                userProfileList[index]['profile'];
                             invitedPeople.add(friend);
                             // print(invitedPeople);
                             _incrementCounter();
@@ -200,19 +198,16 @@ class _InvitesState extends State<Invites> {
                           ),
                         ),
                       ));
-                    }
-                    )
-                    )
-                    )
-                    );
+                    }))));
   }
-    void updateUser(List invitedPeople) async {
-      await _auth.updateUserData(invitedPeople);
+
+  void updateUser(List invitedPeople) async {
+    await _auth.updateUserData(invitedPeople);
     // if (result == null) {
     //   print('Email is not valid');
     // } else {
     //   print(result.toString());
-      
+
     // }
   }
 }
