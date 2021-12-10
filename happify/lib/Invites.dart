@@ -35,7 +35,7 @@ class _InvitesState extends State<Invites> {
     fetchDatabaseList();
   }
 
-  fetchUserFriends() async {
+fetchUserFriends() async {
     dynamic info = await _auth.getUserFriends();
     if (info != null) {
       print(info);
@@ -44,7 +44,7 @@ class _InvitesState extends State<Invites> {
       });
     }
   }
-
+//fetching all users data
   Future fetchDatabaseList() async {
     dynamic resultant = await DatabaseManager().getUsersList();
     if (resultant == null) {

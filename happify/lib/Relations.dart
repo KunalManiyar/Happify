@@ -20,7 +20,7 @@ class _RelationsState extends State<Relations> {
     super.initState();
     fetchUserFriends();
   }
-
+//fetching userfriends data
   fetchUserFriends() async {
     dynamic info = await _auth.getUserFriends();
     if (info != null) {
