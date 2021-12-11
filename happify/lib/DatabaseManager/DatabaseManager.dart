@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:happify/Users.dart';
 
 class DatabaseManager {
   final CollectionReference userInfo =
@@ -28,12 +27,7 @@ class DatabaseManager {
     });
   }
 
-//   Stream<QuerySnapshot> get users{
-//     return userInfo.snapshots();
-//   }
-
   String current_name = " ";
-
   Future getCurrentUserData(uid) async {
     try {
       DocumentSnapshot ds = await userInfo.doc(uid).get();

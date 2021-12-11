@@ -116,18 +116,4 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       ),
     );
   }
-
-  // void createUser() async {
-  //   dynamic result = await _auth.crea(
-  //       _nameController.text, _emailContoller.text, _passwordController.text);
-  //   if (result == null) {
-  //     print('Email is not valid');
-  //   } else {
-  //     print(result.toString());
-  //     _nameController.clear();
-  //     _passwordController.clear();
-  //     _emailContoller.clear();
-  //     // Navigator.pop(context);
-  //   }
-  // }
 }

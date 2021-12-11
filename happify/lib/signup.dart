@@ -1,26 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:happify/Services/AuthenticationServices.dart';
 import 'package:flutter/services.dart';
-
 import 'profile.dart';
-class User{
-  final String fullName="";
-  final String emailId="";
-  final String password="";
-  final String confirmPassword="";
-  final String countryrReligion="";
-  final String mobileNo="";
-}
-class UserDetails with ChangeNotifier{
-  Map _userDetails={};
-  Map get userDetails=>_userDetails;
-  void setUserDetails(){
-    _userDetails=new _SignUpState().details;
-    print("In signup page : ${_userDetails}");
-    // print("Hello");
-    notifyListeners();
-  }
-}
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -38,9 +20,8 @@ class _SignUpState extends State<SignUp> {
   'mobileNo':'',
   
   };
-  // String _fullName="",_emailId="",_password="",_confirmPassword="",_countryReligion="",_mobileNo="";
+  
   String _text="";
-
   bool _isObscure = true;
   final _key = GlobalKey<FormState>();
 

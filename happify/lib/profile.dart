@@ -62,17 +62,6 @@ class _ProfileState extends  State<Profile> {
                         color: Colors.white,
                       ),
                     ),
-                    // child: CircleAvatar(
-                    //   backgroundColor: Colors.orange[600],
-                    //   radius: 100,
-                    //   child:profileImage!=null?Image(
-                    //     image: FileImage(profileImage!),
-                    //   ): Icon(
-                    //     Icons.person,
-                    //     size: 180.0,
-                    //     color: Colors.white,
-                    //   ),
-                    // ),
                   ),
                   Container(
                     height: 70.0,
@@ -123,14 +112,6 @@ class _ProfileState extends  State<Profile> {
                                 ),
                               ),
                               onPressed:() async{
-                                // arguments['profileImg']="Kunal";
-                                // Navigator.pushNamed(
-                                // context,
-                                // '/settings',
-                                // arguments: arguments,
-                                // );
-                                // setState(()=>showText=!showText);
-                                // createUser();
                                 if (profileImage != null) {
                                                       final ref = FirebaseStorage
                                                           .instance

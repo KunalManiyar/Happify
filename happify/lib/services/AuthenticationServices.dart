@@ -18,7 +18,6 @@ class AuthenticationService {
       User? user = result.user;
       await DatabaseManager().createUserData(
           fullName, email, country, profile, mobile, eventsList,invited, user!.uid);
-      // await DatabaseFriendsManager(uid: user.uid).updateUserData({"Dev": true});
       return user;
     } catch (e) {
       print(e.toString());
@@ -52,10 +51,7 @@ class AuthenticationService {
     print(uid);
     dynamic info = await DatabaseManager().getCurrentUserData(uid);
     return info;
-
-    // here you write the codes to input the data into firestore
   }
-
   Future updateUserData(List friends) async {
     final User? user = _auth.currentUser;
     final uid = user!.uid;

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:happify/Services/AuthenticationServices.dart';
 import 'profile.dart';
@@ -22,9 +21,6 @@ class _SignInState extends State<SignIn> {
   'password':'',
   };
   String _text="";
-    
-   
-  
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {

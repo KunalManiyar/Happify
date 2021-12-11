@@ -38,40 +38,6 @@ class _FriendsState extends State<Friends> with SingleTickerProviderStateMixin {
           centerTitle: true,
           backgroundColor: Colors.orange[600],
           actions: [
-            // IconButton(
-            //   icon: Icon(Icons.search),
-            //   onPressed: () {},
-            // ),
-            // PopupMenuButton(onSelected: (value) {
-            //   print(value);
-            // }, itemBuilder: (BuildContext context) {
-            //   return [
-            //       PopupMenuItem(
-            //        child: TextButton(
-            //         onPressed: () {
-            //           Navigator.pushNamed(
-            //               context,
-            //               '/settings'
-            //           );
-            //         },
-            //         child: Text(
-            //           "Settings",
-            //           style: TextStyle(
-            //             fontSize: 18.0,
-            //             color: Colors.black,
-            //           ),
-            //         ),
-            //       ),
-            //        value: "Settings")
-            //     ];
-            //   },
-            // ),
-            // RaisedButton(onPressed: (){},child: Icon(Icons.search,color: Colors.white,),color: Colors.orange[600],),
-            //  RaisedButton(onPressed: (){},child: Icon(Icons.exit_to_app,color: Colors.white,),color: Colors.orange[600],)
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
             IconButton(
               icon: Icon(Icons.settings),
               onPressed: () {

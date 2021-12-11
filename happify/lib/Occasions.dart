@@ -18,9 +18,6 @@ class _OccasionsState extends State<Occasions> {
 
   Map<String,Map<String,String>> eventsList={};
   var ind=0;
-
-  
-
   @override
   var details={};
   Widget build(BuildContext context) {
@@ -45,13 +42,7 @@ class _OccasionsState extends State<Occasions> {
                 openDialogueBox(context);
               },
             ),
-            // IconButton(
-            //   icon: Icon(Icons.settings),
-            //   onPressed: () {
-            //     Navigator.pushNamed(context, '/settings');
-            //   },
-            // ),
-          
+           
           ],
         ),
         body:eventsList.isNotEmpty ?Column(
@@ -146,8 +137,6 @@ class _OccasionsState extends State<Occasions> {
                     eventsList['$ind']=eventData;
                   });
                     ind+=1;
-                  // _occassionController.clear();
-                  // _dateController.clear();
                   Navigator.pop(context);
                 },
                 child: Text('Submit'),

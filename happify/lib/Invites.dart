@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:happify/DatabaseManager/DatabaseFriendsManager.dart';
 import 'package:happify/DatabaseManager/DatabaseManager.dart';
 import 'package:happify/services/AuthenticationServices.dart';
-import 'Users.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 class Invited extends StatelessWidget {
   @override
@@ -28,23 +26,14 @@ class _InvitesState extends State<Invites> {
   List userProfileList = [];
   List invitedPeople = [];
   bool invited = false;
+
   void initState() {
     super.initState();
-    // fetchUserFriends().then((value) =>{if(value==false)  fetchDatabaseList()});
+    //Get currrent user list
     fetchCurrentUser();
     fetchDatabaseList();
   }
 
-fetchUserFriends() async {
-    dynamic info = await _auth.getUserFriends();
-    if (info != null) {
-      print(info);
-      setState(() {
-        userProfileList = info[1];
-      });
-    }
-  }
-//fetching all users data
   Future fetchDatabaseList() async {
     dynamic resultant = await DatabaseManager().getUsersList();
     if (resultant == null) {
@@ -56,10 +45,8 @@ fetchUserFriends() async {
     }
   }
 
-  var current_user;
-
   fetchCurrentUser() async {
-    current_user = await _auth.getUserData();
+    dynamic current_user = await _auth.getUserData();
     if (current_user == null) {
       print('No user present');
     }
@@ -72,16 +59,6 @@ fetchUserFriends() async {
     });
     print(count);
   }
-
-  // void _selected_users(username) {
-  //   setState(() {
-  //     selected.add(username);
-  //   });
-  // }
-
-  // void update(){
-
-  // }
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -137,7 +114,6 @@ fetchUserFriends() async {
                       return Card(
                           child: ListTile(
                         title: Text(userProfileList[index]['name']),
-
                         leading: userProfileList[index]['profile'] != ""
                             ? CircleAvatar(
                                 backgroundImage: NetworkImage(
@@ -153,16 +129,6 @@ fetchUserFriends() async {
                                   color: Colors.white,
                                 ),
                               ),
-
-                        // leading: CircleAvatar(
-                        //   backgroundColor: Colors.orange[600],
-                        //   radius: 50,
-                        //   child: Icon(
-                        //     Icons.person,
-                        //     size: 40.0,
-                        //     color: Colors.white,
-                        //   ),
-                        // ),
                         trailing: RaisedButton(
                           textColor: Colors.white,
                           color: Colors.orange[600],
@@ -184,14 +150,7 @@ fetchUserFriends() async {
                             friend['profile'] =
                                 userProfileList[index]['profile'];
                             invitedPeople.add(friend);
-                            // print(invitedPeople);
                             _incrementCounter();
-                            //   setState(() {
-                            //     // user.send_invite = "Sent";
-                            //     // user_selected.add(user.username);
-                            //   });
-                            //   // Navigator.pushNamed(context, '/status',
-                            //   //     arguments: user_selected);
                           },
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(25.0),
@@ -203,11 +162,5 @@ fetchUserFriends() async {
 
   void updateUser(List invitedPeople) async {
     await _auth.updateUserData(invitedPeople);
-    // if (result == null) {
-    //   print('Email is not valid');
-    // } else {
-    //   print(result.toString());
-
-    // }
   }
 }
